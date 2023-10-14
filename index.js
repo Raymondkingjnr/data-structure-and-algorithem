@@ -184,6 +184,8 @@ console.log(mergeSortedArrays([10, 3, 4, 15, 16], [4, 6, 30, 40, 50, 15, 12]));
 
 // ///// HASH TABLES;
 
+///// collision happens when there is a lot of data than the memory space.
+
 let user = {
   user: "Raymond",
   age: 26,
@@ -200,3 +202,76 @@ console.log(user);
 const a = new Map();
 
 // // Exr
+
+class HashTable {
+  constructor(size) {
+    this.data = new Array(size);
+  }
+
+  _hash(key) {
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash + key.charCodeAt(i) * i) % this.data.length;
+    }
+    return hash;
+  }
+
+  set(key, value) {
+    let address = this._hash(key);
+    if (!this.data[address]) {
+      this.data[address] = [];
+    }
+    this.data[address].push([key, value]);
+    return this.data;
+  }
+
+  //the get function in hash gets only the value.
+  get(key) {
+    let address = this._hash(key);
+    const currentBucket = this.data[address];
+    if (currentBucket) {
+      for (let i = 0; i < currentBucket.length; i++) {
+        if (currentBucket[i][0] === key) {
+          return currentBucket[i][1];
+        }
+      }
+    }
+    return undefined;
+  }
+
+  //this allows us to loop through all our keys in our hashTable
+  keys() {
+    const keysArray = [];
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i]) {
+        keysArray.push(this.data[i][0][0]);
+      }
+    }
+    return keysArray;
+  }
+}
+
+const myHashTable = new HashTable(50);
+
+console.log(myHashTable);
+
+console.log(myHashTable.set("grapes", 10000));
+console.log(myHashTable.set("apples", 54));
+console.log(myHashTable.set("oranges", 14));
+console.log(myHashTable.set("mango", 20));
+console.log(myHashTable.keys());
+console.log(myHashTable.get("grapes"));
+
+function firstRecurringCharacter(input) {
+  for (let i = 0; i < input.length; i++) {
+    for (let j = i + 1; j < input.length; j++) {
+      if (input[i] === input[j]) {
+        return input[i];
+      }
+    }
+  }
+  return undefined;
+}
+
+const recurringNumber = firstRecurringCharacter([1, 4, 6, 7, 9, 2, 3, 4, 3]);
+console.log(recurringNumber);
