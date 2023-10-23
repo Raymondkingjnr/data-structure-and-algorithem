@@ -1,3 +1,40 @@
+//BIG O
+//Nested loops
+const boxes = ["a", "b", "c", "d", "e"];
+
+// function logAllPairsOfArray(array) {
+//   for (let i = 0; i < array.length; i++) {
+//     for (let j = 0; j < array.length; j++) {
+//       console.log(array[i], array[j]);
+//     }
+//   }
+// }
+// //o(n)
+// logAllPairsOfArray(boxes);
+
+function arrayOfHi(n) {
+  let hiArray = [];
+
+  for (let i = 0; i < n; i++) {
+    hiArray[i] = "hi";
+  }
+
+  return hiArray;
+}
+console.log(arrayOfHi(5));
+
+// const box = [1, 2, 4, 3, 5, 7, 3];
+
+// const pairsOfArray = (arr) => {
+//   for (let i = 0; i < arr.length; i++) {
+//     for (let j = 0; j < arr.length; j++) {
+//       console.log(arr[i], arr[j]);
+//     }
+//   }
+// };
+
+// pairsOfArray(box);
+
 const anotherArray1 = ["a", "b", "c", "x"];
 const anotherArray2 = ["z", "y", "a"];
 
@@ -273,5 +310,30 @@ function firstRecurringCharacter(input) {
   return undefined;
 }
 
-const recurringNumber = firstRecurringCharacter([1, 4, 6, 7, 9, 2, 3, 4, 3]);
+const recurringNumber = firstRecurringCharacter([2, 4, 4, 7, 9, 2, 3, 4, 3]);
 console.log(recurringNumber);
+
+//performing task with hashTables
+
+function firstRecurringCharacter2(input) {
+  let map = {};
+
+  for (let i = 0; i < input.length; i++) {
+    if (map[input[i]] !== undefined) {
+      return input[i];
+    } else {
+      map[input[i]] = i;
+    }
+    // console.log(map);
+  }
+
+  return undefined;
+}
+
+const recurringNumber2 = firstRecurringCharacter2([
+  2, 5, 5, 2, 1, 7, 8, 3, 4, 5, 8,
+]);
+
+console.log(recurringNumber2);
+
+// Linked List
