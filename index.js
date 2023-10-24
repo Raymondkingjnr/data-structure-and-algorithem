@@ -337,3 +337,101 @@ const recurringNumber2 = firstRecurringCharacter2([
 console.log(recurringNumber2);
 
 // Linked List
+
+// A pointer is a refrence to another place in memory
+
+// let myLinkedList = {
+//   head: {
+//     value: 10,
+//     next: {
+//       value: 5,
+//       next: {
+//         value: 16,
+//         next:null
+//       }
+//     }
+//   }
+// }
+
+// class LinkedList {
+//   constructor(value) {
+//     this.head = {
+//       value: value,
+//       next: null,
+//     };
+//     this.tail = this.head;
+//     this.length = 1;
+//   }
+//   append(value) {
+//     const newNode = {
+//       value: value,
+//       next: null,
+//     };
+//     this.tail.next = newNode;
+//     this.tail = newNode;
+//     this.length++;
+//     return this;
+//   }
+//   prepend(value) {
+//     const newNode = {
+//       value: value,
+//       next: null,
+//     };
+//     this.head.next = newNode;
+//     this.head = newNode;
+//     this.length++;
+//     return this;
+//   }
+// }
+
+// const myLinkedList = new LinkedList(10);
+// console.log(myLinkedList.append(16));
+// console.log(myLinkedList.prepend(20));
+// console.log(myLinkedList.append(8));
+// console.log(myLinkedList.append(1));
+// console.log(myLinkedList.append(20));
+
+// console.log(myLinkedList);
+
+//Linked list exercisers
+
+class Node {
+  constructor(value) {
+    this.head = {
+      value: value,
+      next: null,
+    };
+
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  append(value) {
+    const endNode = {
+      value: value,
+      next: null,
+    };
+
+    this.tail.next = endNode;
+    this.tail = endNode;
+    this.length++;
+    return this;
+  }
+
+  prepend(value) {
+    const startNode = {
+      value: value,
+      next: null,
+    };
+
+    startNode.next = this.head;
+    this.head = startNode;
+    this.length++;
+    return this;
+  }
+}
+
+const LinkedList = new Node();
+console.log(LinkedList.prepend([2, 5, 6, 10, 33, 40]));
+console.log(LinkedList.prepend([5, 8, 6, 1, 23]));
+console.log(LinkedList.prepend([25, 53, 65, 1, 3, 4]));
