@@ -353,47 +353,7 @@ console.log(recurringNumber2);
 //   }
 // }
 
-// class LinkedList {
-//   constructor(value) {
-//     this.head = {
-//       value: value,
-//       next: null,
-//     };
-//     this.tail = this.head;
-//     this.length = 1;
-//   }
-//   append(value) {
-//     const newNode = {
-//       value: value,
-//       next: null,
-//     };
-//     this.tail.next = newNode;
-//     this.tail = newNode;
-//     this.length++;
-//     return this;
-//   }
-//   prepend(value) {
-//     const newNode = {
-//       value: value,
-//       next: null,
-//     };
-//     this.head.next = newNode;
-//     this.head = newNode;
-//     this.length++;
-//     return this;
-//   }
-// }
-
-// const myLinkedList = new LinkedList(10);
-// console.log(myLinkedList.append(16));
-// console.log(myLinkedList.prepend(20));
-// console.log(myLinkedList.append(8));
-// console.log(myLinkedList.append(1));
-// console.log(myLinkedList.append(20));
-
-// console.log(myLinkedList);
-
-//Linked list exercisers
+//Linked list exercisers Append and prepend
 
 class Node {
   constructor(value) {
@@ -401,7 +361,6 @@ class Node {
       value: value,
       next: null,
     };
-
     this.tail = this.head;
     this.length = 1;
   }
@@ -419,19 +378,61 @@ class Node {
   }
 
   prepend(value) {
-    const startNode = {
+    const startnode = {
       value: value,
       next: null,
     };
 
-    startNode.next = this.head;
-    this.head = startNode;
+    startnode.next = this.head;
+    this.head = startnode;
     this.length++;
     return this;
   }
+
+  printList() {
+    const array = [];
+    let currentNode = this.head;
+    while (currentNode !== null) {
+      array.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+    return array;
+  }
+
+  insert(index, value) {
+    if (index >= this.length) {
+      return this.append(value);
+    }
+
+    const newNode = {
+      value: value,
+      next: null,
+    };
+    const leader = this.traversIndex(index - 1);
+    const nextIndex = leader.next;
+    leader.next = newNode;
+    newNode.next = nextIndex;
+    this.length++;
+    return this.printList();
+  }
+
+  traversIndex(index) {
+    let counter = 0;
+    let currentNode = this.head;
+    while (counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+
+    return currentNode;
+  }
 }
 
-const LinkedList = new Node();
-console.log(LinkedList.prepend([2, 5, 6, 10, 33, 40]));
-console.log(LinkedList.prepend([5, 8, 6, 1, 23]));
-console.log(LinkedList.prepend([25, 53, 65, 1, 3, 4]));
+const List = new Node(10);
+
+// console.log(List.append(12));
+console.log(List.prepend(20));
+console.log(List.prepend(15));
+console.log(List.insert(30, 22));
+console.log(List.insert(3, 17));
+console.log(List.printList());
