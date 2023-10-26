@@ -378,23 +378,22 @@ class Node {
   }
 
   prepend(value) {
-    const startnode = {
+    const startNode = {
       value: value,
       next: null,
     };
-
-    startnode.next = this.head;
-    this.head = startnode;
+    startNode.next = this.head;
+    this.head = startNode;
     this.length++;
     return this;
   }
 
   printList() {
     const array = [];
-    let currentNode = this.head;
-    while (currentNode !== null) {
-      array.push(currentNode.value);
-      currentNode = currentNode.next;
+    let currntNode = this.head;
+    while (currntNode !== null) {
+      array.push(currntNode.value);
+      currntNode = currntNode.next;
     }
     return array;
   }
@@ -408,31 +407,130 @@ class Node {
       value: value,
       next: null,
     };
-    const leader = this.traversIndex(index - 1);
-    const nextIndex = leader.next;
+    const leader = this.travserIndex(index - 1);
+    const handlenextNode = leader.next;
     leader.next = newNode;
-    newNode.next = nextIndex;
+    newNode.next = handlenextNode;
     this.length++;
     return this.printList();
   }
 
-  traversIndex(index) {
-    let counter = 0;
+  travserIndex(index) {
+    let counter = 1;
     let currentNode = this.head;
     while (counter !== index) {
       currentNode = currentNode.next;
       counter++;
     }
-
     return currentNode;
+  }
+
+  remove(index) {
+    const leader = this.travserIndex(index - 1);
+    const unWantedNode = leader.next;
+    leader.next = unWantedNode.next;
+    this.length--;
+    return this.printList();
   }
 }
 
-const List = new Node(10);
+const linkedList = new Node(9);
+console.log(linkedList.append(6));
+console.log(linkedList.prepend(8));
+console.log(linkedList.prepend(3));
+console.log(linkedList.insert(10, 20));
+console.log(linkedList.insert(3, 29));
 
-// console.log(List.append(12));
-console.log(List.prepend(20));
-console.log(List.prepend(15));
-console.log(List.insert(30, 22));
-console.log(List.insert(3, 17));
-console.log(List.printList());
+//Doubly Linked-list
+
+class DoublyNode {
+  constructor(value) {
+    this.head = {
+      value: value,
+      next: null,
+      prev: null,
+    };
+    this.tail = this.head;
+    this.length = 1;
+  }
+
+  append(value) {
+    const endNode = {
+      value: value,
+      next: null,
+      prev: null,
+    };
+    endNode.prev = this.tail;
+    this.tail.next = endNode;
+    this.tail = endNode;
+    this.length++;
+    return this;
+  }
+
+  prepend(value) {
+    const startNode = {
+      value: value,
+      next: null,
+      prev: null,
+    };
+    startNode.next = this.head;
+    this.head.prev = startNode;
+    this.head = startNode;
+    this.length++;
+    return this;
+  }
+
+  printList() {
+    const array = [];
+    let currntNode = this.head;
+    while (currntNode !== null) {
+      array.push(currntNode.value);
+      currntNode = currntNode.next;
+    }
+    return array;
+  }
+
+  insert(index, value) {
+    if (index >= this.length) {
+      return this.append(value);
+    }
+
+    const newNode = {
+      value: value,
+      next: null,
+      prev: null,
+    };
+    const leader = this.travserIndex(index - 1);
+    const handlenextNode = leader.next;
+    leader.next = newNode;
+    newNode.next = handlenextNode;
+    this.length++;
+    return this.printList();
+  }
+
+  travserIndex(index) {
+    let counter = 1;
+    let currentNode = this.head;
+    while (counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    return currentNode;
+  }
+
+  remove(index) {
+    const leader = this.travserIndex(index - 1);
+    const unWantedNode = leader.next;
+    leader.next = unWantedNode.next;
+    this.length--;
+    return this.printList();
+  }
+}
+
+const doublylinkedList = new DoublyNode(9);
+console.log(doublylinkedList.append(6));
+console.log(doublylinkedList.append(10));
+console.log(doublylinkedList.prepend(8));
+// console.log(doublylinkedList.prepend(3));
+// console.log(doublylinkedList.insert(10, 20));
+// console.log(doublylinkedList.insert(3, 29));
