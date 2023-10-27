@@ -101,7 +101,7 @@ console.log(wizard1.introduce());
 class MyArray {
   constructor() {
     this.length = 0;
-    this.data = {};
+    this.data = [];
   }
 
   get(index) {
@@ -142,7 +142,7 @@ newArray.push("hi");
 newArray.push("you");
 newArray.push("are");
 newArray.push("nice");
-newArray.delete(0);
+// newArray.delete(0);
 console.log(newArray);
 
 // ////// Reversing a string
@@ -340,106 +340,93 @@ console.log(recurringNumber2);
 
 // A pointer is a refrence to another place in memory
 
-// let myLinkedList = {
-//   head: {
-//     value: 10,
-//     next: {
-//       value: 5,
-//       next: {
-//         value: 16,
-//         next:null
-//       }
+//Linked list exercisers Append and prepend
+
+// class Node {
+//   constructor(value) {
+//     this.head = {
+//       value: value,
+//       next: null,
+//     };
+//     this.tail = this.head;
+//     this.length = 1;
+//   }
+
+//   append(value) {
+//     const endNode = {
+//       value: value,
+//       next: null,
+//     };
+
+//     this.tail.next = endNode;
+//     this.tail = endNode;
+//     this.length++;
+//     return this;
+//   }
+
+//   prepend(value) {
+//     const startNode = {
+//       value: value,
+//       next: null,
+//     };
+//     startNode.next = this.head;
+//     this.head = startNode;
+//     this.length++;
+//     return this;
+//   }
+
+//   printList() {
+//     const array = [];
+//     let currntNode = this.head;
+//     while (currntNode !== null) {
+//       array.push(currntNode.value);
+//       currntNode = currntNode.next;
 //     }
+//     return array;
+//   }
+
+//   insert(index, value) {
+//     if (index >= this.length) {
+//       return this.append(value);
+//     }
+
+//     const newNode = {
+//       value: value,
+//       next: null,
+//     };
+//     const leader = this.travserIndex(index - 1);
+//     const handlenextNode = leader.next;
+//     leader.next = newNode;
+//     newNode.next = handlenextNode;
+//     this.length++;
+//     return this.printList();
+//   }
+
+//   travserIndex(index) {
+//     let counter = 1;
+//     let currentNode = this.head;
+//     while (counter !== index) {
+//       currentNode = currentNode.next;
+//       counter++;
+//     }
+//     return currentNode;
+//   }
+
+//   remove(index) {
+//     const leader = this.travserIndex(index - 1);
+//     const unWantedNode = leader.next;
+//     leader.next = unWantedNode.next;
+//     this.length--;
+//     return this.printList();
 //   }
 // }
 
-//Linked list exercisers Append and prepend
-
-class Node {
-  constructor(value) {
-    this.head = {
-      value: value,
-      next: null,
-    };
-    this.tail = this.head;
-    this.length = 1;
-  }
-
-  append(value) {
-    const endNode = {
-      value: value,
-      next: null,
-    };
-
-    this.tail.next = endNode;
-    this.tail = endNode;
-    this.length++;
-    return this;
-  }
-
-  prepend(value) {
-    const startNode = {
-      value: value,
-      next: null,
-    };
-    startNode.next = this.head;
-    this.head = startNode;
-    this.length++;
-    return this;
-  }
-
-  printList() {
-    const array = [];
-    let currntNode = this.head;
-    while (currntNode !== null) {
-      array.push(currntNode.value);
-      currntNode = currntNode.next;
-    }
-    return array;
-  }
-
-  insert(index, value) {
-    if (index >= this.length) {
-      return this.append(value);
-    }
-
-    const newNode = {
-      value: value,
-      next: null,
-    };
-    const leader = this.travserIndex(index - 1);
-    const handlenextNode = leader.next;
-    leader.next = newNode;
-    newNode.next = handlenextNode;
-    this.length++;
-    return this.printList();
-  }
-
-  travserIndex(index) {
-    let counter = 1;
-    let currentNode = this.head;
-    while (counter !== index) {
-      currentNode = currentNode.next;
-      counter++;
-    }
-    return currentNode;
-  }
-
-  remove(index) {
-    const leader = this.travserIndex(index - 1);
-    const unWantedNode = leader.next;
-    leader.next = unWantedNode.next;
-    this.length--;
-    return this.printList();
-  }
-}
-
-const linkedList = new Node(9);
-console.log(linkedList.append(6));
-console.log(linkedList.prepend(8));
-console.log(linkedList.prepend(3));
-console.log(linkedList.insert(10, 20));
-console.log(linkedList.insert(3, 29));
+// const linkedList = new Node(9);
+// console.log(linkedList.append(6));
+// console.log(linkedList.prepend(8));
+// console.log(linkedList.prepend(3));
+// console.log(linkedList.insert(10, 20));
+// console.log(linkedList.insert(3, 29));
 
 //Doubly Linked-list
 
@@ -501,9 +488,11 @@ class DoublyNode {
       prev: null,
     };
     const leader = this.travserIndex(index - 1);
-    const handlenextNode = leader.next;
+    const follower = leader.next;
     leader.next = newNode;
-    newNode.next = handlenextNode;
+    newNode.prev = leader;
+    newNode.next = follower;
+    follower.prev = newNode;
     this.length++;
     return this.printList();
   }
@@ -521,16 +510,39 @@ class DoublyNode {
   remove(index) {
     const leader = this.travserIndex(index - 1);
     const unWantedNode = leader.next;
+    // unWantedNode.prev = leader.next;
     leader.next = unWantedNode.next;
     this.length--;
     return this.printList();
   }
+
+  reverse() {
+    if (!this.head.next) {
+      return this.head;
+    }
+
+    let first = this.head;
+    this.tail = this.head;
+    let second = first.next;
+
+    while (second) {
+      const temp = second.next;
+      second.next = first;
+      first = second;
+      second = temp;
+    }
+    this.head.next = null;
+    this.head = first;
+    return this.printList();
+  }
 }
 
-const doublylinkedList = new DoublyNode(9);
-console.log(doublylinkedList.append(6));
-console.log(doublylinkedList.append(10));
-console.log(doublylinkedList.prepend(8));
-// console.log(doublylinkedList.prepend(3));
-// console.log(doublylinkedList.insert(10, 20));
-// console.log(doublylinkedList.insert(3, 29));
+const doublylinkedList = new DoublyNode(10);
+console.log(doublylinkedList.append(23));
+console.log(doublylinkedList.append(30));
+console.log(doublylinkedList.prepend(100));
+console.log(doublylinkedList.prepend(3));
+console.log(doublylinkedList.insert(10, 20));
+console.log(doublylinkedList.insert(3, 120));
+console.log(doublylinkedList.remove(3));
+console.log(doublylinkedList.reverse());
