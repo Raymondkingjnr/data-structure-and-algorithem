@@ -342,91 +342,42 @@ console.log(recurringNumber2);
 
 //Linked list exercisers Append and prepend
 
-// class Node {
-//   constructor(value) {
-//     this.head = {
-//       value: value,
-//       next: null,
-//     };
-//     this.tail = this.head;
-//     this.length = 1;
-//   }
+class LinkList {
+  constructor(value) {
+    const head = {
+      value: value,
+      next: null,
+    };
+    this.tail = head;
+    this.length = 1;
+  }
 
-//   append(value) {
-//     const endNode = {
-//       value: value,
-//       next: null,
-//     };
+  append(value) {
+    const endNode = {
+      value: value,
+      next: null,
+    };
+    this.tail.next = endNode;
+    this.tail = endNode;
+    this.length++;
+    return this;
+  }
 
-//     this.tail.next = endNode;
-//     this.tail = endNode;
-//     this.length++;
-//     return this;
-//   }
+  prepend(value) {
+    const startNode = {
+      value: value,
+      next: null,
+    };
+    startNode.next = this.head;
+    this.head = startNode;
+    this.length++;
+    return this;
+  }
+}
 
-//   prepend(value) {
-//     const startNode = {
-//       value: value,
-//       next: null,
-//     };
-//     startNode.next = this.head;
-//     this.head = startNode;
-//     this.length++;
-//     return this;
-//   }
-
-//   printList() {
-//     const array = [];
-//     let currntNode = this.head;
-//     while (currntNode !== null) {
-//       array.push(currntNode.value);
-//       currntNode = currntNode.next;
-//     }
-//     return array;
-//   }
-
-//   insert(index, value) {
-//     if (index >= this.length) {
-//       return this.append(value);
-//     }
-
-//     const newNode = {
-//       value: value,
-//       next: null,
-//     };
-//     const leader = this.travserIndex(index - 1);
-//     const handlenextNode = leader.next;
-//     leader.next = newNode;
-//     newNode.next = handlenextNode;
-//     this.length++;
-//     return this.printList();
-//   }
-
-//   travserIndex(index) {
-//     let counter = 1;
-//     let currentNode = this.head;
-//     while (counter !== index) {
-//       currentNode = currentNode.next;
-//       counter++;
-//     }
-//     return currentNode;
-//   }
-
-//   remove(index) {
-//     const leader = this.travserIndex(index - 1);
-//     const unWantedNode = leader.next;
-//     leader.next = unWantedNode.next;
-//     this.length--;
-//     return this.printList();
-//   }
-// }
-
-// const linkedList = new Node(9);
-// console.log(linkedList.append(6));
-// console.log(linkedList.prepend(8));
-// console.log(linkedList.prepend(3));
-// console.log(linkedList.insert(10, 20));
-// console.log(linkedList.insert(3, 29));
+const myLinkList = new LinkList(20);
+console.log(myLinkList.append(15));
+console.log(myLinkList.prepend(25));
 
 //Doubly Linked-list
 
@@ -537,12 +488,67 @@ class DoublyNode {
   }
 }
 
-const doublylinkedList = new DoublyNode(10);
-console.log(doublylinkedList.append(23));
-console.log(doublylinkedList.append(30));
-console.log(doublylinkedList.prepend(100));
-console.log(doublylinkedList.prepend(3));
-console.log(doublylinkedList.insert(10, 20));
-console.log(doublylinkedList.insert(3, 120));
-console.log(doublylinkedList.remove(3));
-console.log(doublylinkedList.reverse());
+// const doublylinkedList = new DoublyNode(10);
+// console.log(doublylinkedList.append(23));
+// console.log(doublylinkedList.append(30));
+// console.log(doublylinkedList.prepend(100));
+// console.log(doublylinkedList.prepend(3));
+// console.log(doublylinkedList.insert(10, 20));
+// console.log(doublylinkedList.insert(3, 120));
+// console.log(doublylinkedList.remove(3));
+// console.log(doublylinkedList.reverse());
+
+// Stack
+
+class Node {
+  constructor(value) {
+    (this.value = value), (this.next = null);
+  }
+}
+
+class Stack {
+  constructor() {
+    (this.top = null), (this.bottom = null), (this.length = 0);
+  }
+  peek() {
+    return this.top;
+  }
+
+  push(value) {
+    const newNode = new Node(value);
+    if (this.length === 0) {
+      this.top = newNode;
+      this.bottom = newNode;
+    } else {
+      const holdpointer = this.top;
+      this.top = newNode;
+      this.top.next = holdpointer;
+    }
+    this.length++;
+    return this;
+  }
+
+  pop() {
+    if (!this.top) {
+      return null;
+    }
+    if (this.top === this.bottom) {
+      this.bottom = null;
+    }
+
+    // const holdingPointer = this.top
+    this.top = this.top.next;
+    this.length--;
+    return this;
+  }
+}
+
+const myStack = new Stack();
+console.log(myStack.push("Google"));
+console.log(myStack.push("udemy"));
+console.log(myStack.push("discord"));
+console.log(myStack.push("pintrest"));
+console.log(myStack.pop());
+console.log(myStack.pop());
+
+// console.log(myStack.peek());
