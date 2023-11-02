@@ -344,11 +344,11 @@ console.log(recurringNumber2);
 
 class LinkList {
   constructor(value) {
-    const head = {
+    this.head = {
       value: value,
       next: null,
     };
-    this.tail = head;
+    this.tail = this.head;
     this.length = 1;
   }
 
@@ -373,11 +373,62 @@ class LinkList {
     this.length++;
     return this;
   }
+
+  printList() {
+    const array = [];
+    let currentNode = this.head;
+    while (currentNode !== null) {
+      array.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+    return array;
+  }
+
+  insert(index, value) {
+    if (index >= this.length) {
+      return this.append(value);
+    }
+
+    const newNode = {
+      value: value,
+      next: null,
+    };
+    const leader = this.traversIndex(index - 1);
+    const holdpointer = leader.next;
+    leader.next = newNode;
+    newNode.next = holdpointer;
+    this.length++;
+    return this.printList();
+  }
+
+  traversIndex(index) {
+    let counter = 0;
+    let currentNode = this.head;
+    while (counter !== index) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    return currentNode;
+  }
+
+  remove(index) {
+    const leader = this.traversIndex(index - 1);
+    const unWantedNode = leader.next;
+    leader.next = unWantedNode;
+    this.length--;
+    return this.printList();
+  }
+  reverse() {}
 }
 
 const myLinkList = new LinkList(20);
 console.log(myLinkList.append(15));
 console.log(myLinkList.prepend(25));
+console.log(myLinkList.insert(2, 30));
+console.log(myLinkList.insert(3, 60));
+console.log(myLinkList.insert(2, 40));
+console.log(myLinkList.remove(2));
+// console.log(myLinkList.printList());
 
 //Doubly Linked-list
 
